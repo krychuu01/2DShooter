@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMove(InputValue inputValue) {
         movementInput = inputValue.Get<Vector2>();
+        
     }
 
 }
