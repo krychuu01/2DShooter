@@ -14,8 +14,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float rotationSpeed;
 
+    private Camera camera;
+
+    [SerializeField]
+    private float screenBorder;
+
     private void Awake() {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        camera = Camera.main;
     }
 
     private void FixedUpdate() {
@@ -27,7 +33,26 @@ public class PlayerMovement : MonoBehaviour
         // added so character stops moving smoothly, not when user stops pushing buttons 
         smoothedMovementInput = Vector2.SmoothDamp(smoothedMovementInput, movementInput, ref movementInputSmoothVelocity, 0.1f);
         rigidbody2D.velocity = smoothedMovementInput * speed;
+
+        PreventPlayerGoingOffScreen();
     }
+
+    private void PreventPlayerGoingOffScreen() {
+        Vector2 screenPosition = camera.WorldToScreenPoint(transform.position); // we retrieve the player's position relative to the main camera
+
+        // check if player position is on the left or right map end, if yes, then unable his movement on the X axis to prevent him from going out of the map 
+        // also distract screenBorder value to keep entire player sprite on the scene
+        if ( (screenPosition.x < screenBorder && rigidbody2D.velocity.x < 0) || (screenPosition.x > camera.pixelWidth - screenBorder && rigidbody2D.velocity.x > 0)) {
+            rigidbody2D.velocity = new Vector2(0, rigidbody2D.velocity.y);
+        }
+
+        // check if player position is on the top or bottom map end, if yes, then unable his movement on the Y axis to prevent him from going out of the map
+        // also distract screenBorder value to keep entire player sprite on the scene
+        if ( (screenPosition.y < screenBorder && rigidbody2D.velocity.y < 0) || (screenPosition.y > camera.pixelHeight - screenBorder && rigidbody2D.velocity.y > 0)) {
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
+        }
+    }
+
 
     private void RotateInDirectionOfInput() {
         if (movementInput != Vector2.zero) {

@@ -15,10 +15,15 @@ public class EnemyMovement : MonoBehaviour
     private Vector2 targetDirection;
     private float changeDirectionCooldown;
 
+    [SerializeField]
+    private float screenBorder;
+    private Camera camera;
+
     private void Awake() {
         rigidbody2D = GetComponent<Rigidbody2D>();
         playerAwarnessController = GetComponent<PlayerAwarnessController>();
         targetDirection = transform.up;
+        camera = Camera.main;
     }
 
     // Update is called once per frame
@@ -32,7 +37,7 @@ public class EnemyMovement : MonoBehaviour
     private void UpdateTargetDirection() {
         HandleRandomDirectionChange();
         HandlePlayerTargeting();
-        
+        HandleEnemyGoingOffScreen();
     }
 
     private void RotateTowardsTarget() {
@@ -61,6 +66,20 @@ public class EnemyMovement : MonoBehaviour
     private void HandlePlayerTargeting() {
         if (playerAwarnessController.AwareOfPlayer) {
             targetDirection = playerAwarnessController.DirectionToPlayer;
+        }
+    }
+
+    private void HandleEnemyGoingOffScreen() {
+        Vector2 screenPosition = camera.WorldToScreenPoint(transform.position); // we retrieve the player's position relative to the main camera
+
+        // if enemy is moving towards end of the left or right map end, then turn him around by negating his X axis position
+        if ( (screenPosition.x < screenBorder && targetDirection.x < 0) || (screenPosition.x > camera.pixelWidth - screenBorder && targetDirection.x > 0)) {
+            targetDirection = new Vector2(-targetDirection.x, targetDirection.y);
+        }
+
+        // if enemy is moving towards end of the top or bottom map end, then turn him around by negating his Y axis position
+        if ( (screenPosition.y < screenBorder && targetDirection.y < 0) || (screenPosition.y > camera.pixelHeight - screenBorder && targetDirection.y > 0)) {
+            targetDirection = new Vector2(targetDirection.x, -targetDirection.y);
         }
     }
 }
