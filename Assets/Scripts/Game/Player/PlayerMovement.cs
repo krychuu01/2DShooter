@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate() {
         SetPlayerVelocity();
-        RotateInDirectionOfInput();
+        RotateInDirectionOfMouse();
         SetAnimation();
     }
 
@@ -63,17 +63,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void RotateInDirectionOfInput() {
-        if (movementInput != Vector2.zero) {
-            Quaternion targetRotation = Quaternion.LookRotation(transform.forward, smoothedMovementInput);
-            Quaternion rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            rigidbody2D.MoveRotation(rotation);
-        }
+    private void RotateInDirectionOfMouse() {
+        Vector3 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 rotation = mousePosition - transform.position;
+        float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, rotationZ);
     }
 
     private void OnMove(InputValue inputValue) {
         movementInput = inputValue.Get<Vector2>();
-
     }
 
 }
