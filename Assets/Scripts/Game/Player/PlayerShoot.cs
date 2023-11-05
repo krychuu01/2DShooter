@@ -21,6 +21,8 @@ public class PlayerShoot : MonoBehaviour
     private float lastFireTime;
     private bool fireSingle;
     private Camera camera;
+    [SerializeField]
+    private int shootsLeft;
 
     private void Awake() {
         camera = Camera.main;
@@ -33,7 +35,6 @@ public class PlayerShoot : MonoBehaviour
             float timeSinceLastFire = Time.time - lastFireTime;
             if (timeSinceLastFire >= timeBetweenShots) {
                 FireBullet();
-
                 lastFireTime = Time.time;
                 fireSingle = false;
             }
@@ -42,8 +43,9 @@ public class PlayerShoot : MonoBehaviour
     }
 
     private void FireBullet() {
-        Vector3 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = (mousePosition - transform.position).normalized;
+        Vector3 direction = Input.mousePosition;
+        direction = camera.ScreenToWorldPoint(direction);
+        direction -= transform.position;
 
         // Calculate the angle in degrees
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -53,7 +55,7 @@ public class PlayerShoot : MonoBehaviour
         Rigidbody2D rigidbody2D = bullet.GetComponent<Rigidbody2D>();
 
         // Set the velocity of the bullet based on the direction
-        rigidbody2D.velocity = direction * bulletSpeed;
+        rigidbody2D.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
     }
 
     private void OnFire(InputValue inputValue) {
