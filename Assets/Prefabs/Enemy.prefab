@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 6437386524445415438}
   - component: {fileID: 923031318091991741}
   - component: {fileID: 8721844185237751284}
+  - component: {fileID: 6916901709221657804}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -313,6 +314,18 @@ MonoBehaviour:
           m_StringArgument: onDied
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6916901709221657804}
+        m_TargetAssemblyTypeName: EnemyScoreAllocator, Assembly-CSharp
+        m_MethodName: AllocateScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: onDied
+          m_BoolArgument: 0
+        m_CallState: 2
   onDamaged:
     m_PersistentCalls:
       m_Calls: []
@@ -331,3 +344,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9ef38d6742d4c498578ea54f4b3675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6916901709221657804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8210189845335394708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb72c0fbfd1a87c41891d1f99e7c1d88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killScore: 5
