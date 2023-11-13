@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class HeartSpawner : MonoBehaviour
 {
-
     [SerializeField]
-    private GameObject enemyPrefab;
-
+    private GameObject heartPrefab;
     [SerializeField]
     private float minimiumSpawnTime;
-
     [SerializeField]
     private float maximumSpawnTime;
-
     private float timeUntilSpawn;
+
+    [SerializeField]
+    private List<Vector3> spawnPoints;
 
     void Awake() {
         SetTimeUntilSpawn();
@@ -22,9 +21,8 @@ public class EnemySpawner : MonoBehaviour
 
     void Update() {
         timeUntilSpawn -= Time.deltaTime;
-        if  (timeUntilSpawn <= 0) {
-            // here we instantiating enemy with position of EnemySpawner and without rotation so we use Quaternion.identity
-            Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        if (timeUntilSpawn <= 0) {
+            Instantiate(heartPrefab, takeRandomSpawnPoint(), Quaternion.identity);
             SetTimeUntilSpawn();
         }
     }
@@ -33,4 +31,9 @@ public class EnemySpawner : MonoBehaviour
         timeUntilSpawn = Random.Range(minimiumSpawnTime, maximumSpawnTime);
     }
 
+    private Vector3 takeRandomSpawnPoint() {
+        int spawnPointsSize = spawnPoints.Count;
+        int randomNumber = Random.Range(0, spawnPointsSize);
+        return spawnPoints[randomNumber];
+    }
 }
