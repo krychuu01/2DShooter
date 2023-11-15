@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: f649979b5933ea74abf8d98e962c8ded, type: 3}
+  damage: 10
 --- !u!82 &47840026250275704
 AudioSource:
   m_ObjectHideFlags: 0

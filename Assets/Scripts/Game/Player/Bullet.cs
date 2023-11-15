@@ -14,6 +14,8 @@ public class Bullet : MonoBehaviour
     private bool isAudioPlaying = true;
     private bool canBeDestroyed = false;
     private bool canDamageEnemy = true;
+    [SerializeField]
+    private float damage;
 
     private void Awake() {
         camera = Camera.main;
@@ -33,7 +35,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider2D) {
         if (collider2D.GetComponent<EnemyMovement>() && canDamageEnemy) {
             HealthController healthController = collider2D.GetComponent<HealthController>();
-            healthController.TakeDamage(10);
+            healthController.TakeDamage(damage);
             canDamageEnemy = false;
             transform.position = new Vector2(50, 50); // change it position so it looks like it disappear from the game window, will be Destroyed later
         }

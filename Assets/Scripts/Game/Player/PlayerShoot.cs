@@ -64,4 +64,15 @@ public class PlayerShoot : MonoBehaviour
             fireSingle = true;
         }
     }
+
+    public void ChangeBulletType(GameObject newBulletPrefab) {
+        if (newBulletPrefab.name == "FastBullet") {
+            timeBetweenShots = 0.25f;
+        }
+        if (newBulletPrefab.name == "BasicBullet") {
+            timeBetweenShots = 0.5f;
+        }
+        bulletPrefab = newBulletPrefab;
+    }
+    
 }
