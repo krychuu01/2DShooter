@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1775129937896977393, guid: 928aa2faafbe7df49be91f2e6a71bc51, type: 3}
+  weaponSpawner: {fileID: 384323044192360268, guid: 0189d67bb2182e5468d7b81c3fc4cb61, type: 3}
 --- !u!61 &-6299597360193502368
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heartPrefab: {fileID: 199114471945558613, guid: 9973b307a006c3d45939efabc5777a07, type: 3}
-  minimiumSpawnTime: 0
-  maximumSpawnTime: 2
+  minimiumSpawnTime: 10
+  maximumSpawnTime: 13
   spawnPoints:
   - {x: -3, y: -3, z: 0}
   - {x: 3, y: 3, z: 0}

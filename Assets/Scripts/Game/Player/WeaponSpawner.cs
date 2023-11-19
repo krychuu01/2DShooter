@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WeaponSpawner : MonoBehaviour
@@ -14,7 +15,8 @@ public class WeaponSpawner : MonoBehaviour
     private float maximumSpawnTime;
     [SerializeField]
     private List<Vector3> spawnPoints;
-
+    private List<Vector3> occupiedSpawnPoints = new List<Vector3>();
+    private static Vector3 DEFAULT_SPAWN_POINT_IF_OTHERS_ARE_OCCUPIED = Vector3.zero;
     private float timeUntilSpawn;
 
     void Awake() {
@@ -24,8 +26,12 @@ public class WeaponSpawner : MonoBehaviour
     void Update() {
         timeUntilSpawn -= Time.deltaTime;
         if  (timeUntilSpawn <= 0) {
-            // here we instantiating enemy with position of EnemySpawner and without rotation so we use Quaternion.identity
-            Instantiate(getRandomWeaponPrefab(), takeRandomSpawnPoint(), Quaternion.identity);
+            Vector3 spawnPoint = takeRandomSpawnPoint();
+            if (!spawnPoint.Equals(DEFAULT_SPAWN_POINT_IF_OTHERS_ARE_OCCUPIED)) {
+                // here we instantiating enemy with position of EnemySpawner and without rotation so we use Quaternion.identity
+                Instantiate(getRandomWeaponPrefab(), spawnPoint, Quaternion.identity);
+                occupiedSpawnPoints.Add(spawnPoint);
+            }
             SetTimeUntilSpawn();
         }
     }
@@ -40,9 +46,20 @@ public class WeaponSpawner : MonoBehaviour
     }
 
     private Vector3 takeRandomSpawnPoint() {
-        int spawnPointsSize = spawnPoints.Count;
-        int randomNumber = Random.Range(0, spawnPointsSize);
-        return spawnPoints[randomNumber];
+        List<Vector3> availablePoints = spawnPoints.Where(spawnPoint => !occupiedSpawnPoints.Contains(spawnPoint)).ToList();
+        int availableSpawnPointsSize = availablePoints.Count;
+
+        if (availableSpawnPointsSize == 0) {
+            Debug.Log("All spawnpoints are occupied.");
+            return DEFAULT_SPAWN_POINT_IF_OTHERS_ARE_OCCUPIED;
+        }
+
+        int randomNumber = Random.Range(0, availableSpawnPointsSize);
+        return availablePoints[randomNumber];
+    }
+
+    public void releaseSpawnPoint(Vector3 spawnPoint) {
+        occupiedSpawnPoints.Remove(spawnPoint);
     }
 
 }

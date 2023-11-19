@@ -265,6 +265,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 384323044192360268, guid: 0189d67bb2182e5468d7b81c3fc4cb61, type: 3}
+      propertyPath: maximumSpawnTime
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 384323044192360268, guid: 0189d67bb2182e5468d7b81c3fc4cb61, type: 3}
+      propertyPath: minimiumSpawnTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2869795595345420754, guid: 0189d67bb2182e5468d7b81c3fc4cb61, type: 3}
       propertyPath: m_Name
       value: WeaponSpawner
@@ -2437,7 +2445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c489b19a910e9a14a94752622ff53ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1775129937896977393, guid: 928aa2faafbe7df49be91f2e6a71bc51, type: 3}
+  bulletPrefab: {fileID: 696451380004437082, guid: b01de317f72820046bd99bccc21bbbe1, type: 3}
   bulletSpeed: 8
   gunOffset: {fileID: 308761990}
   timeBetweenShots: 0.5
@@ -3118,11 +3126,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 141821111020941500, guid: 0c5b61464e95fb54f81e5b106b067f67, type: 3}
       propertyPath: maximumSpawnTime
-      value: 12
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 141821111020941500, guid: 0c5b61464e95fb54f81e5b106b067f67, type: 3}
       propertyPath: minimiumSpawnTime
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 141821111020941500, guid: 0c5b61464e95fb54f81e5b106b067f67, type: 3}
       propertyPath: spawnPoints.Array.size
