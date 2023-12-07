@@ -28,7 +28,7 @@ public class WeaponSpawner : MonoBehaviour
         if  (timeUntilSpawn <= 0) {
             Vector3 spawnPoint = takeRandomSpawnPoint();
             if (!spawnPoint.Equals(DEFAULT_SPAWN_POINT_IF_OTHERS_ARE_OCCUPIED)) {
-                // here we instantiating enemy with position of EnemySpawner and without rotation so we use Quaternion.identity
+                // here we instantiating weapon with position of spawn point and without rotation so we use Quaternion.identity
                 Instantiate(getRandomWeaponPrefab(), spawnPoint, Quaternion.identity);
                 occupiedSpawnPoints.Add(spawnPoint);
             }

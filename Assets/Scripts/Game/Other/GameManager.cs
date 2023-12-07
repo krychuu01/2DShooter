@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame() {
         SceneManager.LoadScene("Game");
+        Time.timeScale = 1;
     }
 
     public void LoadMainMenuScene() {
